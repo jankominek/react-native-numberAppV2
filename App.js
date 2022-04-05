@@ -1,12 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { LoginView } from './Views/LoginView/LoginView';
+import { StartView } from './Views/StartView/StartView';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MenuView from './Views/MenuView/MenuView';
+import GameView from './Views/ScoreView/GameView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
+
+
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='login' >
+        <Stack.Screen name="previewAnimation" component={StartView} options={{header: () => null}}/>
+        <Stack.Screen name="login" component={GameView} options={{header: () => null}}/>
+        
+        
+      </Stack.Navigator>
+    </NavigationContainer>
+
   );
 }
 
