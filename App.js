@@ -14,10 +14,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='login' >
+      <Stack.Navigator initialRouteName='previewAnimation' >
         <Stack.Screen name="previewAnimation" component={StartView} options={{header: () => null}}/>
-        <Stack.Screen name="login" component={GameView} options={{header: () => null}}/>
-        
+        <Stack.Screen name="menu" component={MenuView} options={{header: () => null}}/>
+        <Stack.Screen name="login" component={LoginView}/>
         
       </Stack.Navigator>
     </NavigationContainer>

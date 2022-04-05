@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { GameViewCounter, GameViewInput, GameViewTextGeneralScore, GameViewWrapper } from './GameView.styled'
-import { Text } from 'react-native'
+import { Alert, Text } from 'react-native'
 import { InputTextComponent } from '../../components/InputTextComponent/InputTextComponent'
 import { ButtonComponent } from '../../components/ButtonComponent/ButtonComponent'
 import Toast from '../../components/Toast/Toast'
@@ -29,37 +29,58 @@ const GameView = () => {
     const onChangeInput = (textData) => {
         onlyNumberValidation(textData) && setTextInput(textData);
     }
-    console.log("toast text : ", toastText)
+    
+    const showWonAlert = (times, points) => {
+        Alert.alert("You Won!", "You won in "+ times +" times :)\n And you got "+ points +" points",
+            [{text: "Close"}]
+        )
+    }
     const onCheckNumberButtonClick = () => {
         if(Number(textInput)>=0 && Number(textInput) <= 20 && textInput){
             setCounter(counter + 1);
+            const actualCounter = counter + 1;
             if(Number(textInput) == randomVal){
-                if(counter === 1){
+                if(actualCounter === 1){
                     setGeneralScore(generalScore + 5);
-                }else if(counter >= 2 && counter <= 4){
+                    showWonAlert(actualCounter, 5);
+                    setCounter(0);
+                }else if(actualCounter >= 2 && actualCounter <= 4){
                     setGeneralScore(generalScore + 3);
-                }else if(counter >=5 && counter <=6){
+                    showWonAlert(actualCounter, 3);
+                    setCounter(0);
+                }else if(actualCounter >=5 && actualCounter <=6){
                     setGeneralScore(generalScore + 2);
-                }else if(counter >= 7 && counter <= 10){
+                    showWonAlert(actualCounter, 2);
+                    setCounter(0);
+                }else if(actualCounter >= 7 && actualCounter <= 10){
                     setGeneralScore(generalScore + 1);
-                }else if(counter > 10){
-                    
+                    showWonAlert(actualCounter, 1);
+                    setCounter(0);
                 }
-                
-            }else if(Number(textInput) > randomVal && isShowing){
-                setToastText("Twoja liczba jest za duża!")
+                setRandomVal(Math.floor(Math.random() * 21))
+            }else if(actualCounter > 10){
+                Alert.alert("You Lose", "Try again and do not cry :)",
+                    [{text: "Close"}]
+                );
+                setCounter(0);
+                setTextInput("");
+                setRandomVal(Math.floor(Math.random() * 21))
+            }else if(Number(textInput) > randomVal){
                 showToast("Twoja liczba jest za duża!");
-            }else if(Number(textInput) < randomVal && isShowing){
-                setToastText
+            }else if(Number(textInput) < randomVal){ 
                 showToast("Twoja liczba jest za mała!");
             }
+        }else if((Number(textInput)< 0 || Number(textInput) > 20) && textInput){
+            showToast("Twoja liczba nie mieści się w przedziale 0 - 20");
+        }else if(!textInput){
+            showToast("Nie wpisano żadnej liczby");
         }
         setToastText("");
 
     }
     const onNewGameButtonClick = () => {
-        // setRandomVal(Math.floor(Math.random() * 21));
-        // setCounter(0);
+        setRandomVal(Math.floor(Math.random() * 21));
+        setCounter(0);
         
     }
 

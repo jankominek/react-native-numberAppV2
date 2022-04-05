@@ -9,7 +9,7 @@ export const StartView = ({navigation}) => {
     useEffect(()=>{
         setTimeout(()=>{
             setIsShowing(false);
-            navigation.navigate("login")
+            navigation.navigate("menu")
         }, 4200)
     }, [])
 
