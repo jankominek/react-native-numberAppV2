@@ -14,7 +14,7 @@ export const ToastWrapper = styled(Animated.View)`
     background: ${colors.darkBlue};
     border-radius: 15px;
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
 `
 
 export const ToastText = styled.Text`

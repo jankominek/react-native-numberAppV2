@@ -12,7 +12,7 @@ export const ButtonView = styled.View`
     justify-content: center;
     align-items: center;
     height: 40px;
-    margin: ${props => props.margin+"px"};
+    margin-top: ${props => props.margin+"px"};
     width: ${ScreenWidth/3}px;
     border-radius: 10px;
     background: ${colors.mediumBlue};

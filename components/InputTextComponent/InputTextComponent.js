@@ -7,6 +7,7 @@ export const InputTextComponent = (props) => {
         <>
             <InputTextField onChangeText={props.onChangeText}
                             value={props.value}
+                            placeholder={props.placeholder}
                             />
         </>
     )
