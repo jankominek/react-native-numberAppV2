@@ -3,7 +3,7 @@ import {LoginWrapper, FlexColWrapper} from './LoginView.styled';
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 
 import { InputTextComponent } from "../../components/InputTextComponent/InputTextComponent";
-import { getData } from "../../AsyncStorageDB/AsyncStorageDB";
+import { getData, storeData } from "../../AsyncStorageDB/AsyncStorageDB";
 import Toast from "../../components/Toast/Toast";
 
 
@@ -43,6 +43,7 @@ export const LoginView = () => {
                     showToast("User does not exists !");
                 }else if(data.login == login && data.password == password){
                     showToast("Successfully logged in");
+                    storeData("current", data.login);
                 }else{  
                     showToast("Wrong login or password");   
                 }

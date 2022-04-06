@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
+import { removeData } from '../../AsyncStorageDB/AsyncStorageDB'
 import { List, ListComponentView, ScoreViewWrapper } from './ScoreView.styled'
 
 const ScoreView = () => {
@@ -9,6 +10,7 @@ const ScoreView = () => {
     {name: "2"},
     {name: "3"}
   ]
+  removeData("key")
   return (
     <>
       <ScoreViewWrapper>

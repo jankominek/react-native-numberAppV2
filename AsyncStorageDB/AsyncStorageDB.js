@@ -19,6 +19,14 @@ export const getData = async (key) => {
     }
 }
 
+export const removeData = async(key) => {
+  try{
+    await AsyncStorage.removeItem("current");
+  }catch(e){
+
+  }
+}
+
 export const getAllDataToDisplay = async () => {
     AsyncStorage.getAllKeys((err, keys) => {
         AsyncStorage.multiGet(keys, (error, stores) => {
