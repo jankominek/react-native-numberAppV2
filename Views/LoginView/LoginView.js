@@ -1,20 +1,23 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import {LoginWrapper, FlexColWrapper} from './LoginView.styled';
 import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponent";
 
 import { InputTextComponent } from "../../components/InputTextComponent/InputTextComponent";
-import { getData, storeData } from "../../AsyncStorageDB/AsyncStorageDB";
+import { getAllDataToDisplay, getData, storeData } from "../../AsyncStorageDB/AsyncStorageDB";
 import Toast from "../../components/Toast/Toast";
 
 
-export const LoginView = () => {   
+export const LoginView = ({navigation}) => {   
     const [credentials, setCredentials] = useState({login: "", password: ""});
 
     const toast = useRef(null);
     const showToast = (textValue) => toast.current.startAnimation(textValue);
 
+    useEffect(()=>{
+        getAllDataToDisplay();
+    }, [])
+
     const onChangeLogin = (text) => {
-        console.log(text)
         setCredentials({
             ...credentials,
             login : text
@@ -22,16 +25,11 @@ export const LoginView = () => {
         
     }
     const onChangePassword = (text) => {
-        console.log(text)
         setCredentials({
             ...credentials,
             password : text
         })
         
-    }
-
-    const onChangeFunc = (e) => {
-        console.log(e);
     }
 
     const checkUserCredentials = () => {
@@ -44,6 +42,9 @@ export const LoginView = () => {
                 }else if(data.login == login && data.password == password){
                     showToast("Successfully logged in");
                     storeData("current", data.login);
+                    setTimeout(()=>{
+                        navigation.navigate("menu");
+                    }, 2000)
                 }else{  
                     showToast("Wrong login or password");   
                 }

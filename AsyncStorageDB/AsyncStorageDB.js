@@ -20,10 +20,24 @@ export const getData = async (key) => {
 }
 
 export const removeData = async(key) => {
-  try{
-    await AsyncStorage.removeItem("current");
-  }catch(e){
-
+  try {
+      await AsyncStorage.removeItem(key);
+      return true;
+  }
+  catch(exception) {
+      return false;
+  }
+}
+export const importData = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    const result = await AsyncStorage.multiGet(keys);
+    const resArray = result.map( (arrObj) => {
+      return JSON.parse(arrObj[1])
+    }).filter((e)=> typeof e !== "string");
+    return resArray;
+  } catch (error) {
+    console.error(error)
   }
 }
 

@@ -17,7 +17,6 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   
   getAllDataToDisplay();
-  getData("55").then( res => console.log("REEEEEEEEEEEEEES : ", res))
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='previewAnimation' >

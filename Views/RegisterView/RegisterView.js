@@ -16,7 +16,6 @@ export const RegisterView = ({navigation}) => {
     }, [])
 
     const onChangeLogin = (text) => {
-        console.log(text)
         setCredentials({
             ...credentials,
             login : text
@@ -24,7 +23,6 @@ export const RegisterView = ({navigation}) => {
         
     }
     const onChangePassword = (text) => {
-        console.log(text)
         setCredentials({
             ...credentials,
             password : text
@@ -35,8 +33,7 @@ export const RegisterView = ({navigation}) => {
     const checkCredentials = () => {
         if(credentials.login && credentials.password){
             getData(credentials.login).then( (data) => {
-                console.log("response : ", data)
-                if(data.login == null){
+                if(data?.login == null){
                     const userData = {
                         login : credentials.login,
                         password: credentials.password,

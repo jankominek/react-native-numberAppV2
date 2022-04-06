@@ -5,7 +5,8 @@ import { InputTextComponent } from '../../components/InputTextComponent/InputTex
 import { ButtonComponent } from '../../components/ButtonComponent/ButtonComponent'
 import Toast from '../../components/Toast/Toast'
 import { SafeAreaView } from 'react-native-safe-area-context'
-const GameView = () => {
+import { getData, storeData } from '../../AsyncStorageDB/AsyncStorageDB'
+const GameView = ({navigation, route}) => {
 
     const [generalScore, setGeneralScore] = useState(0);
     const [counter, setCounter] = useState(0);
@@ -13,9 +14,18 @@ const GameView = () => {
     const [randomVal, setRandomVal] = useState(0);
     const [toastText, setToastText] = useState("");
     const [isShowing, setIsShowing] = useState(false);
+    const [user, setUser] = useState("");
+
     useEffect(()=>{
         setRandomVal(Math.floor(Math.random() * 21))
+        route.params?.user && setUser(route.params.user);
     }, [])
+
+    useEffect(()=>{
+        getData(user).then( (data) => {
+            setGeneralScore(data.generalScore)
+        })
+    }, [user])
 
     const toast = useRef(null);
     const showToast = (textValue) => toast.current.startAnimation(textValue);
@@ -35,6 +45,14 @@ const GameView = () => {
             [{text: "Close"}]
         )
     }
+    const updateUserStore = (points) => {
+        getData(user).then((data)=> {
+            const userObject =data;
+            userObject.generalScore = Number(userObject.generalScore) + points;
+            storeData(user, userObject);
+        });
+    }
+
     const onCheckNumberButtonClick = () => {
         if(Number(textInput)>=0 && Number(textInput) <= 20 && textInput){
             setCounter(counter + 1);
@@ -42,18 +60,22 @@ const GameView = () => {
             if(Number(textInput) == randomVal){
                 if(actualCounter === 1){
                     setGeneralScore(generalScore + 5);
+                    updateUserStore(5)
                     showWonAlert(actualCounter, 5);
                     setCounter(0);
                 }else if(actualCounter >= 2 && actualCounter <= 4){
                     setGeneralScore(generalScore + 3);
                     showWonAlert(actualCounter, 3);
+                    updateUserStore(3)
                     setCounter(0);
                 }else if(actualCounter >=5 && actualCounter <=6){
                     setGeneralScore(generalScore + 2);
+                    updateUserStore(2)
                     showWonAlert(actualCounter, 2);
                     setCounter(0);
                 }else if(actualCounter >= 7 && actualCounter <= 10){
                     setGeneralScore(generalScore + 1);
+                    updateUserStore(1)
                     showWonAlert(actualCounter, 1);
                     setCounter(0);
                 }
