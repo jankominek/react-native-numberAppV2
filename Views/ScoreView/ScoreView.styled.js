@@ -28,6 +28,7 @@ export const TextWrapper = styled.View`
     height: 40px;
     border: 1px solid ${colors.darkBlue};
     background: ${colors.seaBlue}
+    border-radius: 10px;
     display: flex;
     
     justify-content: center;

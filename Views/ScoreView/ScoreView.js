@@ -27,8 +27,9 @@ const ScoreView = () => {
       <ScoreViewWrapper>
         <Title>Top 10 users</Title>
         <ItemList name="Name" score="Score"/>
-        <List data={store} renderItem={({item})=> <ItemList name={item.login} score={item.generalScore}/>}
-
+        <List data={store} 
+        renderItem={({item, key})=> <ItemList key={key} name={item.login} score={item.generalScore}/>}
+        keyExtractor={(item, index) => index.toString()}
         />
       </ScoreViewWrapper>
     </>
