@@ -10,11 +10,17 @@ const ScoreView = () => {
 
   useEffect(()=>{
       importData().then( (data) => {
-          setStore(data);
+          prepareData(data)
+          console.log("data : ", data[1])
       })
   }, [])
-  const prepareData = () => {
+  const prepareData = (data) => {
+        const sorted = data.sort((a, b)=> compareValues(a.generalScore, b.generalScore)).slice(0, 10);
+        setStore(sorted);
+  }
 
+  const compareValues = (val1, val2) => {
+      return val2-val1;
   }
   return (
     <>

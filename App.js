@@ -24,7 +24,7 @@ export default function App() {
         <Stack.Screen name="menu" component={MenuView} options={{header: () => null}}/>
         <Stack.Screen name="login" component={LoginView}/>
         <Stack.Screen name="register" component={RegisterView} />
-        <Stack.Screen name="game" component={GameView} />
+        <Stack.Screen name="game" component={GameView}/>
         <Stack.Screen name="score" component={ScoreView} />
       </Stack.Navigator>
     </NavigationContainer>

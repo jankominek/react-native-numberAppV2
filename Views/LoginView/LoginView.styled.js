@@ -5,7 +5,7 @@ const ScreenWidth = Dimensions.get("window").width;
 
 export const LoginWrapper = styled.View`
     background: white;
-    height: ${ScreenHeight}px;
+    height: ${(props) => ScreenHeight - props.header}px;
     width: ${ScreenWidth}px;
     display: flex;
     justify-content: center;

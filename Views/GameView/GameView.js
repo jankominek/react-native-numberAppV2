@@ -5,6 +5,7 @@ import { InputTextComponent } from '../../components/InputTextComponent/InputTex
 import { ButtonComponent } from '../../components/ButtonComponent/ButtonComponent'
 import Toast from '../../components/Toast/Toast'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useHeaderHeight } from '@react-navigation/elements';
 import { getData, storeData } from '../../AsyncStorageDB/AsyncStorageDB'
 const GameView = ({navigation, route}) => {
 
@@ -15,7 +16,9 @@ const GameView = ({navigation, route}) => {
     const [toastText, setToastText] = useState("");
     const [isShowing, setIsShowing] = useState(false);
     const [user, setUser] = useState("");
-
+   
+    const headerHeight = useHeaderHeight();
+    console.log("header height : ", headerHeight)
     useEffect(()=>{
         setRandomVal(Math.floor(Math.random() * 21))
         route.params?.user && setUser(route.params.user);
@@ -23,7 +26,7 @@ const GameView = ({navigation, route}) => {
 
     useEffect(()=>{
         getData(user).then( (data) => {
-            setGeneralScore(data.generalScore)
+            setGeneralScore(data?.generalScore)
         })
     }, [user])
 
@@ -107,16 +110,17 @@ const GameView = ({navigation, route}) => {
     }
 
   return (
-      <SafeAreaView>
-        <GameViewWrapper>
+    //   <SafeAreaView>
+        headerHeight && <GameViewWrapper header={headerHeight}>
             <GameViewTextGeneralScore>General score : {generalScore}</GameViewTextGeneralScore>
             <GameViewCounter>Number of shots : {counter}</GameViewCounter>
             <InputTextComponent value={textInput} onChangeText={onChangeInput}/>
-            <ButtonComponent text="check number" margin={25} onPress={onCheckNumberButtonClick}/>
-            <ButtonComponent text="New game" margin={50} onPress={onNewGameButtonClick}/>
+            <ButtonComponent text="check number" margin={10} onPress={onCheckNumberButtonClick}/>
+            <ButtonComponent text="New game" margin={10} onPress={onNewGameButtonClick}/>
+            <ButtonComponent text="Table score" margin={10} onPress={() => navigation.navigate("score")}/>
             <Toast toastText={toastText} ref={toast}/>
         </GameViewWrapper>
-        </SafeAreaView>
+        // </SafeAreaView>
   )
 }
 

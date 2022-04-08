@@ -5,11 +5,11 @@ import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponen
 import { InputTextComponent } from "../../components/InputTextComponent/InputTextComponent";
 import { getAllDataToDisplay, getData, storeData } from "../../AsyncStorageDB/AsyncStorageDB";
 import Toast from "../../components/Toast/Toast";
-
+import { useHeaderHeight } from '@react-navigation/elements';
 
 export const LoginView = ({navigation}) => {   
     const [credentials, setCredentials] = useState({login: "", password: ""});
-
+    const headerHeight = useHeaderHeight();
     const toast = useRef(null);
     const showToast = (textValue) => toast.current.startAnimation(textValue);
 
@@ -53,7 +53,7 @@ export const LoginView = ({navigation}) => {
     }
 
     return(
-        <LoginWrapper>
+        headerHeight && <LoginWrapper header={headerHeight}>
             <FlexColWrapper>
                 <InputTextComponent onChangeText={onChangeLogin}
                                     value={credentials.login}

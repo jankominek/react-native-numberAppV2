@@ -8,7 +8,7 @@ import { InputTextComponent } from '../../components/InputTextComponent/InputTex
 import { ButtonView } from '../../components/ButtonComponent/ButtonComponent.styled';
 
 export const GameViewWrapper = styled.View`
-    height: ${windowHeight}px;
+    height: ${(props) => windowHeight - props.header}px;
     width: ${windowWidth}px;
     display: flex;
     flex-direction: column;

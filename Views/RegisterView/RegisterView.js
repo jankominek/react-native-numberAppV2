@@ -4,11 +4,13 @@ import { ButtonComponent } from "../../components/ButtonComponent/ButtonComponen
 import { InputTextComponent } from "../../components/InputTextComponent/InputTextComponent";
 import { RegisterWrapper, FlexColWrapper} from "./RegisterView.styled";
 import Toast from "../../components/Toast/Toast";
-
+import { useHeaderHeight } from '@react-navigation/elements';
 
 export const RegisterView = ({navigation}) => {   
     const [credentials, setCredentials] = useState({login: "", password: ""});
 
+    
+    const headerHeight = useHeaderHeight();
     const toast = useRef(null);
     const showToast = (textValue) => toast.current.startAnimation(textValue);
 
@@ -53,7 +55,7 @@ export const RegisterView = ({navigation}) => {
     }
 
     return(
-        <RegisterWrapper>
+        headerHeight && <RegisterWrapper header={headerHeight}>
             <FlexColWrapper>
                 <InputTextComponent onChangeText={onChangeLogin}
                                     value={credentials.login}
